@@ -41,7 +41,6 @@ public class OyuncuAdapter extends RecyclerView.Adapter<OyuncuAdapter.ViewHolder
         Log.d(TAG, "onBindViewHolder : " + bindSayac++);
         Oyuncu oyuncu = oyuncuListesi.get(position);
         holder.isim.setText(oyuncu.getIsim());
-        holder.foto.s
         Glide.with(context).load(oyuncu.getFoto()).into(holder.foto);
     }
 
