@@ -23,16 +23,18 @@ public class OyuncuAdapter extends RecyclerView.Adapter<OyuncuAdapter.ViewHolder
     int bindSayac = 1;
     ArrayList<Oyuncu> oyuncuListesi;
     Context context;
+    int itemLayout;
 
-    public OyuncuAdapter(ArrayList<Oyuncu> oyuncuListesi, Context context) {
+    public OyuncuAdapter(ArrayList<Oyuncu> oyuncuListesi, Context context, int itemLayout) {
         this.oyuncuListesi = oyuncuListesi;
         this.context=context;
+        this.itemLayout = itemLayout;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d(TAG, "OnCreateViewHolder : " + createSayac++);
-        View v = LayoutInflater.from(context).inflate(R.layout.item_oyuncu, parent, false);
+        View v = LayoutInflater.from(context).inflate(itemLayout, parent, false);
         return new ViewHolder(v);
     }
 

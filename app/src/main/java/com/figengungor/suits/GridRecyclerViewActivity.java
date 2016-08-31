@@ -6,9 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
-
-public class MainActivity extends AppCompatActivity {
+public class GridRecyclerViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     OyuncuAdapter adapter;
     ArrayList<Oyuncu> oyuncuListesi;
@@ -16,14 +14,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_grid_recyclerview);
         oyuncuListesiniDoldur();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new OyuncuAdapter(oyuncuListesi, this);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,R.drawable.divider));
-        SlideInRightAnimationAdapter slideInRightAnimationAdapter = new SlideInRightAnimationAdapter(adapter);
-        slideInRightAnimationAdapter.setFirstOnly(false);
-        recyclerView.setAdapter(slideInRightAnimationAdapter);
+        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item__grid_oyuncu);
+        recyclerView.setAdapter(adapter);
     }
 
     public void oyuncuListesiniDoldur() {
