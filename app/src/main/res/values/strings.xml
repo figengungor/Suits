@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Suits</string>
+    <string name="linearRecyclerView">Linear RecyclerView</string>
+    <string name="gridRecylerView">Grid RecyclerView</string>
+    <string name="cardRecylerView">Card RecyclerView</string>
+    <string name="drawerOpened">Navigasyon menüsü açıldı</string>
+    <string name="drawerClosed">Navigasyon menüsü kapandı</string>
 </resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/linear"
+            android:icon="@drawable/ic_linear_24dp"
+            android:title="@string/linearRecyclerView" />
+
+        <item
+            android:id="@+id/grid"
+            android:icon="@drawable/ic_grid_24dp"
+            android:title="@string/gridRecylerView" />
+
+        <item
+            android:id="@+id/card"
+            android:icon="@drawable/ic_card_24dp"
+            android:title="@string/cardRecylerView" />
+
+</menu>

@@ -3,6 +3,8 @@ package com.figengungor.suits;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -12,6 +14,7 @@ public class LinearRecyclerViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     OyuncuAdapter adapter;
     ArrayList<Oyuncu> oyuncuListesi;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,11 @@ public class LinearRecyclerViewActivity extends AppCompatActivity {
         SlideInRightAnimationAdapter slideInRightAnimationAdapter = new SlideInRightAnimationAdapter(adapter);
         slideInRightAnimationAdapter.setFirstOnly(false);
         recyclerView.setAdapter(slideInRightAnimationAdapter);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.linearRecyclerView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void oyuncuListesiniDoldur() {
@@ -45,5 +53,16 @@ public class LinearRecyclerViewActivity extends AppCompatActivity {
         oyuncuListesi.add(new Oyuncu(R.drawable.ericclose, "Eric Close"));
         oyuncuListesi.add(new Oyuncu(R.drawable.davidcostabile, "David Costabile"));
         oyuncuListesi.add(new Oyuncu(R.drawable.amandaschull, "Amanda Schull"));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

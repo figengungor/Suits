@@ -6,10 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CardRecyclerViewActivity">
 
+    <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager" >
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_below="@+id/toolbar">
+
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

@@ -7,12 +7,15 @@
     tools:context=".GridRecyclerViewActivity"
     android:background="@color/darkgrey">
 
+    <include layout="@layout/toolbar" android:id="@+id/toolbar"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        app:spanCount="2">
+        app:spanCount="2"
+        android:layout_below="@+id/toolbar">
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
