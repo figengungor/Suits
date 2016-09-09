@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    RelativeLayout content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
+        content = (RelativeLayout) findViewById(R.id.content);
         toolbarAyarla();
         navigationViewAyarla();
     }
@@ -42,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                content.setTranslationX(slideOffset * drawerView.getWidth());
             }
         };
 
