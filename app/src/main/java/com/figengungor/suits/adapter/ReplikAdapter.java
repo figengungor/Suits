@@ -1,4 +1,4 @@
-package com.figengungor.suits;
+package com.figengungor.suits.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.figengungor.suits.R;
+import com.figengungor.suits.model.Replik;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;

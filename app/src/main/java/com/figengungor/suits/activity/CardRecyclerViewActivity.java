@@ -1,10 +1,14 @@
-package com.figengungor.suits;
+package com.figengungor.suits.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.figengungor.suits.R;
+import com.figengungor.suits.model.Replik;
+import com.figengungor.suits.adapter.ReplikAdapter;
 
 import java.util.ArrayList;
 

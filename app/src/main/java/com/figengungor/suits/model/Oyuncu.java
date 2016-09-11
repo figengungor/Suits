@@ -1,4 +1,4 @@
-package com.figengungor.suits;
+package com.figengungor.suits.model;
 
 /**
  * Created by figengungor on 29.08.2016.

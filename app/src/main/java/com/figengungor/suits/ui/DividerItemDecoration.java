@@ -1,4 +1,4 @@
-package com.figengungor.suits;
+package com.figengungor.suits.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;

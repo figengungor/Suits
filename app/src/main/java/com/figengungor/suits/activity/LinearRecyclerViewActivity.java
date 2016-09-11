@@ -1,4 +1,4 @@
-package com.figengungor.suits;
+package com.figengungor.suits.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,9 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.figengungor.suits.ui.DividerItemDecoration;
+import com.figengungor.suits.model.Oyuncu;
+import com.figengungor.suits.adapter.OyuncuAdapter;
+import com.figengungor.suits.R;
+
 import java.util.ArrayList;
 
-public class GridRecyclerViewActivity extends AppCompatActivity {
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
+
+public class LinearRecyclerViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     OyuncuAdapter adapter;
     ArrayList<Oyuncu> oyuncuListesi;
@@ -17,15 +24,18 @@ public class GridRecyclerViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_recyclerview);
+        setContentView(R.layout.activity_linear_recyclerview);
         oyuncuListesiniDoldur();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item__grid_oyuncu);
-        recyclerView.setAdapter(adapter);
+        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item__linear_oyuncu);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,R.drawable.divider));
+        SlideInRightAnimationAdapter slideInRightAnimationAdapter = new SlideInRightAnimationAdapter(adapter);
+        slideInRightAnimationAdapter.setFirstOnly(false);
+        recyclerView.setAdapter(slideInRightAnimationAdapter);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.gridRecylerView);
+        getSupportActionBar().setTitle(R.string.linearRecyclerView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
