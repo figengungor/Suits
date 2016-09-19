@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.figengungor.suits.R;
+import com.figengungor.suits.adapter.ViewPagerAdapter;
 import com.figengungor.suits.fragment.SezonFragment;
 import com.figengungor.suits.fragment.TanitimFragment;
 
@@ -27,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     RelativeLayout content;
     TabLayout tabLayout;
-    TanitimFragment tanitimFragment;
-    SezonFragment sezonFragment;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,55 +40,18 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         content = (RelativeLayout) findViewById(R.id.content);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
         toolbarAyarla();
         navigationViewAyarla();
-        tabLayoutAyarla();
+        viewPagerAyarla();
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void tabLayoutAyarla() {
-
-        tanitimFragment = new TanitimFragment();
-        sezonFragment = new SezonFragment();
-
-        tabLayout.addTab(tabLayout.newTab().setText("Tanıtım"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sezon"));
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                tabAyarla(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        fragmentAyarla(tanitimFragment);
-
-    }
-
-    private void tabAyarla(int position) {
-        switch(position){
-            case 0: fragmentAyarla(tanitimFragment); break;
-            case 1: fragmentAyarla(sezonFragment); break;
-        }
-    }
-
-    private void fragmentAyarla(Fragment fragment) {
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .commit();
-
+    private void viewPagerAyarla() {
+            ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            adapter.addFragment(new TanitimFragment(), "Tanıtım");
+            adapter.addFragment(new SezonFragment(), "Sezon");
+            viewPager.setAdapter(adapter);
     }
 
     public void toolbarAyarla(){
