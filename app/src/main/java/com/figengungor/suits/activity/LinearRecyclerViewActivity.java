@@ -1,25 +1,21 @@
 package com.figengungor.suits.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
-import com.figengungor.suits.ui.DividerItemDecoration;
-import com.figengungor.suits.model.Oyuncu;
-import com.figengungor.suits.adapter.OyuncuAdapter;
 import com.figengungor.suits.R;
+import com.figengungor.suits.adapter.OyuncuAdapter;
+import com.figengungor.suits.model.Oyuncu;
+import com.figengungor.suits.ui.DividerItemDecoration;
 
 import java.util.ArrayList;
 
 import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
 
-public class LinearRecyclerViewActivity extends AppCompatActivity {
+public class LinearRecyclerViewActivity extends BaseActivity {
     RecyclerView recyclerView;
     OyuncuAdapter adapter;
     ArrayList<Oyuncu> oyuncuListesi;
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +29,7 @@ public class LinearRecyclerViewActivity extends AppCompatActivity {
         slideInRightAnimationAdapter.setFirstOnly(false);
         recyclerView.setAdapter(slideInRightAnimationAdapter);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.linearRecyclerView);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(R.string.linearRecyclerView);
     }
 
     public void oyuncuListesiniDoldur() {
@@ -60,14 +53,4 @@ public class LinearRecyclerViewActivity extends AppCompatActivity {
         oyuncuListesi.add(new Oyuncu(R.drawable.amandaschull, "Amanda Schull"));
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

@@ -15,9 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LinearRecyclerViewActivity"/>
-        <activity android:name=".activity.GridRecyclerViewActivity"/>
-        <activity android:name=".activity.CardRecyclerViewActivity"/>
+        <activity android:name=".activity.LinearRecyclerViewActivity" />
+        <activity android:name=".activity.GridRecyclerViewActivity" />
+        <activity android:name=".activity.CardRecyclerViewActivity" />
+        <activity android:name=".activity.BaseActivity"></activity>
     </application>
 
 </manifest>
