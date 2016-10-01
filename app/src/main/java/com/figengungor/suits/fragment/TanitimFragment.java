@@ -24,6 +24,7 @@ import retrofit2.Response;
 public class TanitimFragment extends Fragment {
 
     OmdbService omdbService;
+    Call<Tanitim> tanitimCall;
     TextView year, released, runtime, genre, writer, actors, plot, imdbRating, imdbVotes, awards;
     ImageView poster;
     Tanitim tanitim;
@@ -50,7 +51,7 @@ public class TanitimFragment extends Fragment {
         awards  = (TextView) view.findViewById(R.id.awards );
         poster = (ImageView) view.findViewById(R.id.poster);
 
-        Call<Tanitim> tanitimCall = omdbService.tanitimBilgileriniCek("Suits");
+        tanitimCall = omdbService.tanitimBilgileriniCek("Suits");
         tanitimCall.enqueue(tanitimCallback);
 
         return view;
@@ -89,5 +90,11 @@ public class TanitimFragment extends Fragment {
             Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
         }
     };
+
+    @Override
+    public void onDestroy() {
+        tanitimCall.cancel();
+        super.onDestroy();
+    }
 
 }
