@@ -1,12 +1,14 @@
 package com.figengungor.suits.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,12 +17,11 @@ import com.figengungor.suits.R;
 import com.figengungor.suits.model.Tanitim;
 import com.figengungor.suits.network.OmdbService;
 import com.figengungor.suits.network.ServiceGenerator;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-
 public class TanitimFragment extends Fragment {
 
     OmdbService omdbService;
@@ -28,6 +29,8 @@ public class TanitimFragment extends Fragment {
     TextView year, released, runtime, genre, writer, actors, plot, imdbRating, imdbVotes, awards;
     ImageView poster;
     Tanitim tanitim;
+    ProgressWheel progressWheel;
+    LinearLayout content;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,9 +53,20 @@ public class TanitimFragment extends Fragment {
         imdbVotes  = (TextView) view.findViewById(R.id.imdbVotes );
         awards  = (TextView) view.findViewById(R.id.awards );
         poster = (ImageView) view.findViewById(R.id.poster);
+        content = (LinearLayout) view.findViewById(R.id.content);
+        progressWheel = (ProgressWheel) view.findViewById(R.id.progressWheel);
 
         tanitimCall = omdbService.tanitimBilgileriniCek("Suits");
-        tanitimCall.enqueue(tanitimCallback);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tanitimCall.enqueue(tanitimCallback);
+            }
+        }, 2000);
+
+        progressWheel.setVisibility(View.VISIBLE);
 
         return view;
     }
@@ -67,6 +81,7 @@ public class TanitimFragment extends Fragment {
                     Toast.makeText(getContext(), tanitim.getError(), Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    content.setVisibility(View.VISIBLE);
                     year.setText(tanitim.getYear());
                     released.setText(tanitim.getReleased());
                     runtime.setText(tanitim.getRuntime());
@@ -79,15 +94,16 @@ public class TanitimFragment extends Fragment {
                     awards.setText(tanitim.getAwards());
                     Glide.with(getContext()).load(tanitim.getPoster()).into(poster);
                 }
-
             } else {
                 Toast.makeText(getContext(), response.code() + " " + response.message(), Toast.LENGTH_SHORT).show();
             }
+            progressWheel.setVisibility(View.GONE);
         }
 
         @Override
         public void onFailure(Call<Tanitim> call, Throwable t) {
             Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            progressWheel.setVisibility(View.GONE);
         }
     };
 
@@ -96,5 +112,4 @@ public class TanitimFragment extends Fragment {
         tanitimCall.cancel();
         super.onDestroy();
     }
-
 }

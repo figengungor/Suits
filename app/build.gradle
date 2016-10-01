@@ -33,4 +33,5 @@ dependencies {
     compile 'com.android.support:design:24.2.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.pnikosis:materialish-progress:1.7'
 }
