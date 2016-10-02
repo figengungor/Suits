@@ -1,7 +1,6 @@
 package com.figengungor.suits.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -57,14 +56,7 @@ public class TanitimFragment extends Fragment {
         progressWheel = (ProgressWheel) view.findViewById(R.id.progressWheel);
 
         tanitimCall = omdbService.tanitimBilgileriniCek("Suits");
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tanitimCall.enqueue(tanitimCallback);
-            }
-        }, 2000);
+        tanitimCall.enqueue(tanitimCallback);
 
         progressWheel.setVisibility(View.VISIBLE);
 
