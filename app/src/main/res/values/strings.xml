@@ -5,4 +5,8 @@
     <string name="cardRecylerView">Card RecyclerView</string>
     <string name="drawerOpened">Navigasyon menüsü açıldı</string>
     <string name="drawerClosed">Navigasyon menüsü kapandı</string>
+    <string name="tryagain">Sürükle bırak, tekrar dene!</string>
+    <string name="noInternet">Ağ bağlantısı sorunu oluştu. Lütfen Internet\'iniz açık olduğundan emin olup, tekrar deneyiniz.</string>
+    <string name="timeout">Bağlantı zaman aşımına uğradı, lütfen tekrar deneyiniz.</string>
+    <string name="contactdeveloper">\nHata tekrar ederse lütfen geliştirici ile irtibata geçin.</string>
 </resources>

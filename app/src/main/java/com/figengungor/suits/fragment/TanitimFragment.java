@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.figengungor.suits.R;
@@ -19,6 +18,9 @@ import com.figengungor.suits.network.OmdbService;
 import com.figengungor.suits.network.ServiceGenerator;
 import com.figengungor.suits.ui.MultiSwipeRefreshLayout;
 import com.pnikosis.materialishprogress.ProgressWheel;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,8 +79,9 @@ public class TanitimFragment extends Fragment {
             if (response.isSuccessful()) {
                 tanitim = response.body();
                 if (tanitim.getResponse().equalsIgnoreCase("False")) {
-                    Toast.makeText(getContext(), tanitim.getError(), Toast.LENGTH_SHORT).show();
+                    hataFragmentiniGoster(HataFragment.newInstance(R.drawable.ic_error_outline_24dp, tanitim.getError()));
                 } else {
+                    hataFragmentiniKaldir();
                     content.setVisibility(View.VISIBLE);
                     year.setText(tanitim.getYear());
                     released.setText(tanitim.getReleased());
@@ -93,14 +96,23 @@ public class TanitimFragment extends Fragment {
                     Glide.with(getContext()).load(tanitim.getPoster()).into(poster);
                 }
             } else {
-                Toast.makeText(getContext(), response.code() + " " + response.message(), Toast.LENGTH_SHORT).show();
+                hataFragmentiniGoster(HataFragment.newInstance(R.drawable.ic_error_outline_24dp,
+                        response.code() + " : " + response.message() + getString(R.string.contactdeveloper)));
             }
             progressRefreshKaldir();
         }
 
         @Override
         public void onFailure(Call<Tanitim> call, Throwable t) {
-            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            if (t instanceof SocketTimeoutException) {
+                hataFragmentiniGoster(HataFragment.newInstance(R.drawable.ic_timeout, getString(R.string.timeout)));
+            } else if (t instanceof IOException) {
+                hataFragmentiniGoster(HataFragment.newInstance(R.drawable.ic_no_internet, getString(R.string.noInternet)));
+            } else {
+                hataFragmentiniGoster(HataFragment.newInstance(R.drawable.ic_error_outline_24dp, t.getMessage()));
+            }
+
             progressRefreshKaldir();
 
         }
@@ -124,11 +136,27 @@ public class TanitimFragment extends Fragment {
         swipeRefreshLayout.setSwipeableChildren(R.id.scrollView);
     }
 
-    private void progressRefreshKaldir(){
-        if(progressWheel.getVisibility() == View.VISIBLE)
+    private void progressRefreshKaldir() {
+        if (progressWheel.getVisibility() == View.VISIBLE)
             progressWheel.setVisibility(View.GONE);
-        if(swipeRefreshLayout.isRefreshing())
+        if (swipeRefreshLayout.isRefreshing())
             swipeRefreshLayout.setRefreshing(false);
     }
+
+    public void hataFragmentiniGoster(Fragment fragment) {
+        content.setVisibility(View.GONE);
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, fragment).commitAllowingStateLoss();
+    }
+
+    public void hataFragmentiniKaldir() {
+        if (getChildFragmentManager().findFragmentById(R.id.fragmentContainer) != null)
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .remove(getChildFragmentManager().findFragmentById(R.id.fragmentContainer))
+                    .commitAllowingStateLoss();
+    }
+
 
 }
