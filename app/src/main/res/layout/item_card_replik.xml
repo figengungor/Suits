@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="replik"
+            type="com.figengungor.suits.model.Replik" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/foto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius_top_left="16dp"
+                app:riv_corner_radius_top_right="16dp"
+                app:imageResource="@{replik.foto}"
+                tools:src="@drawable/harvey1" />
+
+            <TextView
+                android:id="@+id/replik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/foto"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@{replik.replik}"
+                tools:text="Ben ihtimallere oynamam. Adama oynarım." />
+
+            <TextView
+                android:id="@+id/karakterAdi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/replik"
+                android:paddingBottom="5dp"
+                android:paddingRight="10dp"
+                android:text="@{replik.karakterAdi}"
+                tools:text="Harvey Specter" />
+
+            <ImageView
+                android:id="@+id/begenBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/replik"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_favorite_border_24dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/replik"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/begenBtn"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_share_24dp" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</layout>

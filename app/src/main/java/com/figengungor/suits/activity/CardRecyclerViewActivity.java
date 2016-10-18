@@ -1,29 +1,29 @@
 package com.figengungor.suits.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 
 import com.figengungor.suits.R;
 import com.figengungor.suits.adapter.ReplikAdapter;
+import com.figengungor.suits.databinding.ActivityCardRecyclerviewBinding;
 import com.figengungor.suits.model.Replik;
 
 import java.util.ArrayList;
 
 public class CardRecyclerViewActivity extends BaseActivity {
-    RecyclerView recyclerView;
     ReplikAdapter adapter;
     ArrayList<Replik> replikListesi;
+    ActivityCardRecyclerviewBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_recyclerview);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_card_recyclerview);
         replikListesiniDoldur();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new ReplikAdapter(replikListesi, this, R.layout.item__card_replik);
-        recyclerView.setAdapter(adapter);
+        adapter = new ReplikAdapter(replikListesi, this, R.layout.item_card_replik);
+        binding.recyclerView.setAdapter(adapter);
 
-        setTitle(R.string.cardRecylerView);
+        setToolbarAndTitle(binding.toolbarLayout.toolbar, getString(R.string.cardRecylerView));
     }
 
     public void replikListesiniDoldur() {

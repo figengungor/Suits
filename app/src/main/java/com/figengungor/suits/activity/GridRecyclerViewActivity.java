@@ -1,29 +1,29 @@
 package com.figengungor.suits.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 
 import com.figengungor.suits.R;
 import com.figengungor.suits.adapter.OyuncuAdapter;
+import com.figengungor.suits.databinding.ActivityGridRecyclerviewBinding;
 import com.figengungor.suits.model.Oyuncu;
 
 import java.util.ArrayList;
 
 public class GridRecyclerViewActivity extends BaseActivity {
-    RecyclerView recyclerView;
     OyuncuAdapter adapter;
     ArrayList<Oyuncu> oyuncuListesi;
+    ActivityGridRecyclerviewBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_recyclerview);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_grid_recyclerview);
         oyuncuListesiniDoldur();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item__grid_oyuncu);
-        recyclerView.setAdapter(adapter);
+        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item_grid_oyuncu);
+        binding.recyclerView.setAdapter(adapter);
 
-        setTitle(R.string.gridRecylerView);
+        setToolbarAndTitle(binding.toolbarLayout.toolbar, getString(R.string.gridRecylerView));
     }
 
     public void oyuncuListesiniDoldur() {

@@ -1,16 +1,15 @@
 package com.figengungor.suits.adapter;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.figengungor.suits.R;
+import com.figengungor.suits.BR;
 import com.figengungor.suits.model.Replik;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 
@@ -37,10 +36,8 @@ public class ReplikAdapter extends RecyclerView.Adapter<ReplikAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Replik replik = replikListesi.get(position);
-        holder.replik.setText(replik.getReplik());
-        holder.karakterAdi.setText(replik.getKarakterAdi());
-        Glide.with(context).load(replik.getFoto()).into(holder.foto);
-
+        holder.binding.setVariable(BR.replik, replik);
+        holder.binding.executePendingBindings();
     }
 
     @Override
@@ -49,16 +46,10 @@ public class ReplikAdapter extends RecyclerView.Adapter<ReplikAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-
-        RoundedImageView foto;
-        TextView replik;
-        TextView karakterAdi;
-
+        public ViewDataBinding binding;
         public ViewHolder(View itemView) {
             super(itemView);
-            foto = (RoundedImageView)itemView.findViewById(R.id.foto);
-            replik = (TextView)itemView.findViewById(R.id.replik);
-            karakterAdi = (TextView) itemView.findViewById(R.id.karakterAdi);
+            binding = DataBindingUtil.bind(itemView);
         }
     }
 }

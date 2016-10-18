@@ -1,10 +1,11 @@
 package com.figengungor.suits.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 
 import com.figengungor.suits.R;
 import com.figengungor.suits.adapter.OyuncuAdapter;
+import com.figengungor.suits.databinding.ActivityLinearRecyclerviewBinding;
 import com.figengungor.suits.model.Oyuncu;
 import com.figengungor.suits.ui.DividerItemDecoration;
 
@@ -13,23 +14,22 @@ import java.util.ArrayList;
 import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
 
 public class LinearRecyclerViewActivity extends BaseActivity {
-    RecyclerView recyclerView;
     OyuncuAdapter adapter;
     ArrayList<Oyuncu> oyuncuListesi;
+    ActivityLinearRecyclerviewBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_linear_recyclerview);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_linear_recyclerview);
         oyuncuListesiniDoldur();
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item__linear_oyuncu);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,R.drawable.divider));
+        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item_linear_oyuncu);
+        binding.recyclerView.addItemDecoration(new DividerItemDecoration(this,R.drawable.divider));
         SlideInRightAnimationAdapter slideInRightAnimationAdapter = new SlideInRightAnimationAdapter(adapter);
         slideInRightAnimationAdapter.setFirstOnly(false);
-        recyclerView.setAdapter(slideInRightAnimationAdapter);
+        binding.recyclerView.setAdapter(slideInRightAnimationAdapter);
 
-        setTitle(R.string.linearRecyclerView);
+        setToolbarAndTitle(binding.toolbarLayout.toolbar, getString(R.string.linearRecyclerView));
     }
 
     public void oyuncuListesiniDoldur() {
