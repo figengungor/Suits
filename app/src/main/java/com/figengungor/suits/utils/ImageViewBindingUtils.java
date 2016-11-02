@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide;
 /**
  * Created by figengungor on 17.10.2016.
  */
-public class ImageViewBindingUtility {
+public class ImageViewBindingUtils {
 
     @BindingAdapter("imageUrl")
     public static void loadImage(ImageView view, String url) {
