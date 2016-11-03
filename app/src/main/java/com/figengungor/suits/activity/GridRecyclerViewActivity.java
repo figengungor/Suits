@@ -2,6 +2,7 @@ package com.figengungor.suits.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.figengungor.suits.R;
 import com.figengungor.suits.adapter.OyuncuAdapter;
@@ -9,7 +10,7 @@ import com.figengungor.suits.model.Oyuncu;
 
 import java.util.ArrayList;
 
-public class GridRecyclerViewActivity extends BaseActivity {
+public class GridRecyclerViewActivity extends BaseActivity implements OyuncuAdapter.ItemListener {
     RecyclerView recyclerView;
     OyuncuAdapter adapter;
     ArrayList<Oyuncu> oyuncuListesi;
@@ -20,7 +21,8 @@ public class GridRecyclerViewActivity extends BaseActivity {
         setContentView(R.layout.activity_grid_recyclerview);
         oyuncuListesiniDoldur();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item__grid_oyuncu);
+        adapter = new OyuncuAdapter(oyuncuListesi, R.layout.item__grid_oyuncu);
+        adapter.setItemListener(this);
         recyclerView.setAdapter(adapter);
 
         setTitle(R.string.gridRecylerView);
@@ -45,5 +47,12 @@ public class GridRecyclerViewActivity extends BaseActivity {
         oyuncuListesi.add(new Oyuncu(R.drawable.ericclose, "Eric Close"));
         oyuncuListesi.add(new Oyuncu(R.drawable.davidcostabile, "David Costabile"));
         oyuncuListesi.add(new Oyuncu(R.drawable.amandaschull, "Amanda Schull"));
+    }
+
+    @Override
+    public void onItemClicked(Oyuncu oyuncu) {
+        Toast.makeText(GridRecyclerViewActivity.this,
+                oyuncu.getIsim() + ", tıklama gıdıklanıyorum dedi.",
+                Toast.LENGTH_SHORT).show();
     }
 }

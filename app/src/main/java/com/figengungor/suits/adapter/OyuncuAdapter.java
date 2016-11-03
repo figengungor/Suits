@@ -1,6 +1,5 @@
 package com.figengungor.suits.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,19 +23,18 @@ public class OyuncuAdapter extends RecyclerView.Adapter<OyuncuAdapter.ViewHolder
     int createSayac = 1;
     int bindSayac = 1;
     ArrayList<Oyuncu> oyuncuListesi;
-    Context context;
     int itemLayout;
+    ItemListener itemListener;
 
-    public OyuncuAdapter(ArrayList<Oyuncu> oyuncuListesi, Context context, int itemLayout) {
+    public OyuncuAdapter(ArrayList<Oyuncu> oyuncuListesi, int itemLayout) {
         this.oyuncuListesi = oyuncuListesi;
-        this.context=context;
         this.itemLayout = itemLayout;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.d(TAG, "OnCreateViewHolder : " + createSayac++);
-        View v = LayoutInflater.from(context).inflate(itemLayout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
         return new ViewHolder(v);
     }
 
@@ -44,8 +42,7 @@ public class OyuncuAdapter extends RecyclerView.Adapter<OyuncuAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder : " + bindSayac++);
         Oyuncu oyuncu = oyuncuListesi.get(position);
-        holder.isim.setText(oyuncu.getIsim());
-        Glide.with(context).load(oyuncu.getFoto()).into(holder.foto);
+        holder.bindItem(oyuncu);
     }
 
     @Override
@@ -53,19 +50,39 @@ public class OyuncuAdapter extends RecyclerView.Adapter<OyuncuAdapter.ViewHolder
         return oyuncuListesi.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView foto;
         TextView isim;
+        Oyuncu oyuncu;
 
         public ViewHolder(View itemView) {
             super(itemView);
             foto = (ImageView)itemView.findViewById(R.id.foto);
             isim = (TextView)itemView.findViewById(R.id.isim);
+            itemView.setOnClickListener(this);
+        }
+
+        public void bindItem(Oyuncu oyuncu) {
+            this.oyuncu = oyuncu;
+            isim.setText(oyuncu.getIsim());
+            Glide.with(itemView.getContext()).load(oyuncu.getFoto()).into(foto);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(itemListener != null) {
+                itemListener.onItemClicked(oyuncu);
+            }
         }
     }
 
+    public interface ItemListener{
+        public void onItemClicked(Oyuncu oyuncu);
+    }
 
-
+    public void setItemListener(ItemListener itemListener){
+        this.itemListener = itemListener;
+    }
 
 }

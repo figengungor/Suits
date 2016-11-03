@@ -2,6 +2,7 @@ package com.figengungor.suits.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.figengungor.suits.R;
 import com.figengungor.suits.adapter.OyuncuAdapter;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
 
-public class LinearRecyclerViewActivity extends BaseActivity {
+public class LinearRecyclerViewActivity extends BaseActivity implements OyuncuAdapter.ItemListener {
     RecyclerView recyclerView;
     OyuncuAdapter adapter;
     ArrayList<Oyuncu> oyuncuListesi;
@@ -23,8 +24,9 @@ public class LinearRecyclerViewActivity extends BaseActivity {
         setContentView(R.layout.activity_linear_recyclerview);
         oyuncuListesiniDoldur();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new OyuncuAdapter(oyuncuListesi, this, R.layout.item__linear_oyuncu);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,R.drawable.divider));
+        adapter = new OyuncuAdapter(oyuncuListesi, R.layout.item__linear_oyuncu);
+        adapter.setItemListener(this);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, R.drawable.divider));
         SlideInRightAnimationAdapter slideInRightAnimationAdapter = new SlideInRightAnimationAdapter(adapter);
         slideInRightAnimationAdapter.setFirstOnly(false);
         recyclerView.setAdapter(slideInRightAnimationAdapter);
@@ -53,4 +55,10 @@ public class LinearRecyclerViewActivity extends BaseActivity {
         oyuncuListesi.add(new Oyuncu(R.drawable.amandaschull, "Amanda Schull"));
     }
 
+    @Override
+    public void onItemClicked(Oyuncu oyuncu) {
+        Toast.makeText(LinearRecyclerViewActivity.this,
+                oyuncu.getIsim() + ", tıklama gıdıklanıyorum dedi.",
+                Toast.LENGTH_SHORT).show();
+    }
 }
